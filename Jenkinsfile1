@@ -27,6 +27,7 @@ pipeline {
                             
                             kubectl get pods
                             cd namespaces
+                            nomos status
                             nomos vet --source-format=unstructured
                             ls
                              
