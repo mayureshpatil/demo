@@ -31,6 +31,7 @@ pipeline {
                             pwd
                             
                             nomos status
+                            cd namespaces
                             nomos vet --source-format=unstructured
                             ls
                              
