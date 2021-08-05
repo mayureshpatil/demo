@@ -52,7 +52,7 @@ pipeline {
            sh "git branch -a"
            sh "git checkout v2"
            sh "git merge $branch_test"
-           sh "git push origin v2"
+           sh "git push remotes/origin/v2"
          }
      }
     }
