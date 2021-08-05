@@ -31,7 +31,6 @@ pipeline {
                             pwd
                             
                             nomos status
-                            cd namespaces
                             nomos vet --source-format=unstructured
                             ls
                              
@@ -49,10 +48,15 @@ pipeline {
            timeout(time:12, unit:'HOURS') {
               input message:'Approve deployment?', submitter: 'sre-approvers'
            }
-           sh "git branch -a"
-           sh "git checkout v2"
-           sh "git merge $branch_test"
-           sh "git push git@github.com:mayureshpatil/demo.git"
+           script{
+               withCredentials([usernamePassword(credentialsId: 'mayuresh-personal-git', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+    git checkout test
+    git merge $branch_test
+    git push https://${GIT_USERNAME}:${GIT_PASSWORD}@demo.git --tags
+}
+
+           }
+           
          }
      }
     }
