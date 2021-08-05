@@ -26,6 +26,7 @@ pipeline {
 
                             
                             kubectl get pods
+                            cd namespace
                             ls
                              
 
