@@ -50,7 +50,7 @@ pipeline {
               input message:'Approve deployment?', submitter: 'sre-approvers'
            }
            sh "git branch -a"
-           sh "git checkout v1"
+           sh "git checkout v2"
            sh "git merge $branch_test"
          }
      }
