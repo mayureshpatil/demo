@@ -10,5 +10,31 @@ pipeline {
                 sh "ls"
             }
         }
+        stage ('k8s  us-west1-a cluster authentication') {
+            steps{
+                echo "authenticating with k8s cluster"
+
+                script {
+                    // Authenticating with GKE with Service account as jenkins secrate
+                    withCredentials([file(credentialsId: 'csa-key', variable: 'GC_KEY')]) {
+                            sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
+                            sh '''
+                            gcloud container clusters get-credentials --internal-ip lpgkcl-n-conbld-uswe1-01 --zone us-west1-a --project lpgprj-b2b-n-cbbapp-us-01
+                          export https_proxy=10.214.0.16:8118
+
+                            echo "Ip is, $https_proxy"
+
+                            
+                            kubectl get pods
+                            ls
+                             
+
+                            '''
+
+                        }
+                }
+
+            }
+            }
     }
 }
