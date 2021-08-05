@@ -53,7 +53,7 @@ pipeline {
                withCredentials([usernamePassword(credentialsId: 'mayuresh-personal-git', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
     git checkout test
     git merge $branch_test
-    sh ('git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@jenkins-paramter.git')
+    sh ('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/mayureshpatil/demo.git')
 }
 
            }
