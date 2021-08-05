@@ -26,6 +26,9 @@ pipeline {
 
                             
                             kubectl get pods
+                            git checkout $branch
+                            git branch 
+                            pwd
                             
                             nomos status
                             nomos vet --source-format=unstructured
