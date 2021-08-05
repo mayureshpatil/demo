@@ -5,7 +5,7 @@ pipeline {
         stage('Hello') {
             steps {
                 echo 'Hello World'
-                echo "Barnach selected is $BRANCH"
+                echo "Barnach selected is $branch_test"
                 sh  "nomos"
                 sh "ls"
             }
@@ -26,7 +26,7 @@ pipeline {
 
                             
                             kubectl get pods
-                            git checkout $branch
+                            git checkout $branch_test
                             git branch 
                             pwd
                             
@@ -42,5 +42,15 @@ pipeline {
 
             }
             }
+
+            stage('Wait for SRE Approval') {
+         steps{
+           timeout(time:12, unit:'HOURS') {
+              input message:'Approve deployment?', submitter: 'sre-approvers'
+           }
+           sh "git checkout test"
+           sh "git merge $branch_test"
+         }
+     }
     }
 }
